@@ -42,8 +42,8 @@ export class SpacePhase {
   update(dt) {
     const g = this.g, inp = g.input, cam = g.cam;
     // steering: crosshair offset sets turn rate
-    cam.yaw += inp.aimX * 1.25 * dt;
-    cam.pitch = clamp(cam.pitch + inp.aimY * 1.0 * dt, -1.1, 1.1);
+    cam.yaw += inp.aimX * TUNING.spaceYawRate * dt;
+    cam.pitch = clamp(cam.pitch + inp.aimY * TUNING.spacePitchRate * dt, -1.1, 1.1);
     cam.roll = approach(cam.roll, -inp.aimX * 0.35, 4, dt);
 
     if (this.done) {

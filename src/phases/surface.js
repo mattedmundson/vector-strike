@@ -29,7 +29,7 @@ export class SurfacePhase {
 
   update(dt) {
     const g = this.g, cam = g.cam, inp = g.input;
-    cam.pos.x = clamp(cam.pos.x + inp.aimX * 95 * dt, -160, 160);
+    cam.pos.x = clamp(cam.pos.x + inp.aimX * TUNING.surfaceStrafe * dt, -160, 160);
     cam.pos.y = clamp(cam.pos.y + inp.aimY * 45 * dt, 6, 60);
     cam.pos.z += this.speed * dt;
     cam.roll = approach(cam.roll, -inp.aimX * 0.3, 4, dt);

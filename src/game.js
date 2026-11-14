@@ -279,7 +279,7 @@ export class Game {
       ctx2.globalAlpha = this.input.fire ? 0.9 : 0.45;
       ctx2.beginPath(); ctx2.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx2.stroke();
       ctx2.globalAlpha = 1;
-      r.text('FIRE', b.x, b.y, u * 0.7, COLORS.laser);
+      r.text('FIRE', b.x, b.y, u * 1.0, COLORS.laser);
     }
 
     if (this.state === 'over') {
@@ -301,7 +301,7 @@ export class Game {
     r.text('DOGFIGHT  ·  SURFACE RUN  ·  TRENCH RUN', r.cx, r.cy - u * 4.6, u * 0.7, COLORS.cyan);
     const tilt = this.input.tilt.available;
     const how = this.input.isTouch
-      ? (tilt ? 'TILT TO STEER  ·  HOLD FIRE  ·  QUICK TAP = RE-CENTRE' : 'DRAG TO STEER  ·  HOLD FIRE BUTTON')
+      ? (tilt ? 'TILT TO STEER  ·  HOLD RIGHT SIDE TO FIRE  ·  TAP LEFT = RE-CENTRE' : 'DRAG TO STEER  ·  HOLD FIRE BUTTON')
       : 'MOUSE OR ARROWS TO STEER  ·  CLICK / SPACE TO FIRE  ·  GAMEPAD OK';
     r.text(how, r.cx, r.cy + u * 5.2, u * 0.6, COLORS.star);
     if (Math.floor(t * 2) % 2 === 0) r.text(this.input.isTouch ? 'TAP TO START' : 'PRESS FIRE TO START', r.cx, r.cy + u * 7, u * 0.95, COLORS.hud);

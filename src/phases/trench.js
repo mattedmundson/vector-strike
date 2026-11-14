@@ -49,7 +49,7 @@ export class TrenchPhase {
       return;
     }
 
-    cam.pos.x = clamp(cam.pos.x + inp.aimX * 55 * dt, -HALF + 3, HALF - 3);
+    cam.pos.x = clamp(cam.pos.x + inp.aimX * TUNING.trenchStrafe * dt, -HALF + 3, HALF - 3);
     cam.pos.y = clamp(cam.pos.y + inp.aimY * 40 * dt, 3, TOP - 3);
     cam.pos.z += this.speed * dt;
     cam.roll = approach(cam.roll, -inp.aimX * 0.25, 4, dt);

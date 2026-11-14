@@ -80,13 +80,15 @@ export class Input {
   }
 
   fireButton() {
-    const r = Math.max(42, Math.min(this.r.w, this.r.h) * 0.11);
-    return { x: this.r.w - r * 1.5, y: this.r.h - r * 1.5, r };
+    const r = Math.max(64, Math.min(this.r.w, this.r.h) * 0.19);
+    return { x: this.r.w - r * 1.25, y: this.r.h - r * 1.25, r };
   }
 
   inFireButton(x, y) {
     const b = this.fireButton();
-    return Math.hypot(x - b.x, y - b.y) < b.r * 1.35;
+    // With tilt steering the thumbs are free, so the whole right half of the screen fires.
+    if (this.tilt.available && x > this.r.w * 0.5) return true;
+    return Math.hypot(x - b.x, y - b.y) < b.r * 1.5;
   }
 
   /** Crosshair position in screen pixels. */

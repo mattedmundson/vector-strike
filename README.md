@@ -22,7 +22,7 @@ loaded directly by a kiosk-mode browser on the cabinet PC.
 |---|---|---|
 | Mouse | crosshair follows pointer | click / hold |
 | Keyboard | arrows or WASD | Space / J / Enter |
-| Phone tilt | turn the phone like a wheel; pull top towards you to climb (quick tap = re-centre) | FIRE button |
+| Phone tilt | turn the phone like a wheel; pull top towards you to climb (quick tap on left = re-centre) | anywhere on the right half |
 | Touch | drag anywhere (virtual stick; overrides tilt) | FIRE button, bottom-right |
 | Gamepad / yoke | axis 0 (X), axis 1 (Y) | any button |
 

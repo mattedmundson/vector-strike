@@ -13,10 +13,10 @@
 import { clamp } from './math.js';
 
 export const TILT = {
-  steerRange: 28, // degrees of wheel turn for full crosshair deflection
+  steerRange: 18, // degrees of wheel turn for full crosshair deflection (was 28)
   pitchRange: 22, // degrees of pull/push for full deflection
   deadzone: 1.5,  // degrees
-  smoothing: 14,  // higher = snappier
+  smoothing: 18,  // higher = snappier
   invertPitch: false, // flip if pulling back dives instead of climbs
 };
 
