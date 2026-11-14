@@ -8,6 +8,7 @@
 // gamepad/joystick via the Gamepad API — which is how the home-made
 // yoke (Arduino Leonardo / Pro Micro as a HID joystick) plugs in.
 import { clamp, approach } from './math.js';
+import { Tilt } from './tilt.js';
 
 export const CONFIG = {
   gamepadInvertY: false, // pull back on yoke = crosshair up (arcade default)
@@ -30,6 +31,7 @@ export class Input {
     this.isTouch = false;
     this._press = false;
     this.padPrevFire = false;
+    this.tilt = new Tilt();
 
     addEventListener('keydown', (e) => {
       if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(e.key)) e.preventDefault();
@@ -51,7 +53,7 @@ export class Input {
       this.isTouch = true; this.mode = 'touch'; this._press = true;
       for (const t of e.changedTouches) {
         if (this.inFireButton(t.clientX, t.clientY) && this.fireTouch === null) this.fireTouch = t.identifier;
-        else if (!this.stick) this.stick = { id: t.identifier, x0: t.clientX, y0: t.clientY, x: t.clientX, y: t.clientY };
+        else if (!this.stick) this.stick = { id: t.identifier, x0: t.clientX, y0: t.clientY, x: t.clientX, y: t.clientY, t0: performance.now() };
       }
     }, opts);
     canvas.addEventListener('touchmove', (e) => {
@@ -62,8 +64,14 @@ export class Input {
     }, opts);
     const end = (e) => {
       e.preventDefault();
+      this.tilt.request(); // iOS only shows the motion permission prompt from a tap (touchend)
       for (const t of e.changedTouches) {
-        if (this.stick && t.identifier === this.stick.id) this.stick = null;
+        if (this.stick && t.identifier === this.stick.id) {
+          const s = this.stick;
+          const tap = performance.now() - s.t0 < 250 && Math.hypot(s.x - s.x0, s.y - s.y0) < 14;
+          if (tap && this.tilt.available) this.tilt.recentre(); // quick tap = re-centre the yoke
+          this.stick = null;
+        }
         if (t.identifier === this.fireTouch) this.fireTouch = null;
       }
     };
@@ -122,10 +130,14 @@ export class Input {
       this.aimY = dy ? clamp(this.aimY + dy * CONFIG.keySpeed * dt, -1, 1) : approach(this.aimY, 0, 3, dt);
       fire = k.has('Space') || k.has('KeyJ') || k.has('Enter');
     } else if (this.mode === 'touch') {
+      this.tilt.update(dt);
       if (this.stick) {
         const range = Math.min(this.r.w, this.r.h) * 0.16;
         this.aimX = clamp((this.stick.x - this.stick.x0) / range, -1, 1);
         this.aimY = clamp(-(this.stick.y - this.stick.y0) / range, -1, 1);
+      } else if (this.tilt.available) {
+        this.aimX = this.tilt.x;
+        this.aimY = this.tilt.y;
       } else {
         this.aimX = approach(this.aimX, 0, 6, dt);
         this.aimY = approach(this.aimY, 0, 6, dt);

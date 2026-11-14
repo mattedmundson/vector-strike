@@ -22,8 +22,13 @@ loaded directly by a kiosk-mode browser on the cabinet PC.
 |---|---|---|
 | Mouse | crosshair follows pointer | click / hold |
 | Keyboard | arrows or WASD | Space / J / Enter |
-| Touch | drag anywhere (virtual stick) | FIRE button, bottom-right |
+| Phone tilt | turn the phone like a wheel; pull top towards you to climb (quick tap = re-centre) | FIRE button |
+| Touch | drag anywhere (virtual stick; overrides tilt) | FIRE button, bottom-right |
 | Gamepad / yoke | axis 0 (X), axis 1 (Y) | any button |
+
+Tilt needs the game served over https (e.g. GitHub Pages): sandboxed viewers such as
+the Claude artifact page block motion sensors, and the game falls back to drag steering.
+Tilt tuning lives in `TILT` in `src/tilt.js`.
 
 Pull back on the yoke = crosshair up (arcade default). Flip
 `CONFIG.gamepadInvertY` in `src/input.js` if your hardware reports the other way.

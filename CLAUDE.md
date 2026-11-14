@@ -13,7 +13,7 @@ arcade cabinet with a DIY flight yoke (Arduino as USB HID joystick).
   look stays consistent. Batch by colour; don't call ctx.stroke per line.
 - Coordinates: x right, y up, z forward. `cam.toCam()` then `r.project()`.
 - Tuning numbers go in `src/config.js`.
-- Must stay playable with mouse, keyboard, touch AND gamepad. The gamepad
+- Must stay playable with mouse, keyboard, touch, phone tilt AND gamepad. The gamepad
   path is the one the real yoke uses — never break it.
 
 ## Phase contract (`src/phases/*.js`)

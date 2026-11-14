@@ -43,6 +43,7 @@ export class Game {
 
   start() {
     unlockAudio();
+    this.input.tilt.recentre(); // the way you're holding the phone now = centre
     this.resetRun();
     this.state = 'play';
     this.goto('space');
@@ -298,8 +299,9 @@ export class Game {
     r.flush();
     r.text('VECTOR STRIKE', r.cx, r.cy - u * 6.5, u * 2.4, COLORS.hud);
     r.text('DOGFIGHT  ·  SURFACE RUN  ·  TRENCH RUN', r.cx, r.cy - u * 4.6, u * 0.7, COLORS.cyan);
+    const tilt = this.input.tilt.available;
     const how = this.input.isTouch
-      ? 'DRAG TO STEER  ·  HOLD FIRE BUTTON'
+      ? (tilt ? 'TILT TO STEER  ·  HOLD FIRE  ·  QUICK TAP = RE-CENTRE' : 'DRAG TO STEER  ·  HOLD FIRE BUTTON')
       : 'MOUSE OR ARROWS TO STEER  ·  CLICK / SPACE TO FIRE  ·  GAMEPAD OK';
     r.text(how, r.cx, r.cy + u * 5.2, u * 0.6, COLORS.star);
     if (Math.floor(t * 2) % 2 === 0) r.text(this.input.isTouch ? 'TAP TO START' : 'PRESS FIRE TO START', r.cx, r.cy + u * 7, u * 0.95, COLORS.hud);
