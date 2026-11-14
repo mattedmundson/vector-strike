@@ -1,0 +1,15 @@
+{
+  "name": "vector-strike",
+  "version": "0.1.0",
+  "description": "A 1983-style colour vector space shooter (dogfight, surface run, trench run) built for a home-made arcade cabinet with a flight-yoke controller.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/build.mjs --watch",
+    "build": "node scripts/build.mjs",
+    "serve": "npx --yes serve dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
+}
